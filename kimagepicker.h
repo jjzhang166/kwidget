@@ -14,6 +14,8 @@ public:
         return path_;
     }
 
+    void setPath(const QString& path);
+
 protected:
     virtual void mousePressEvent(QMouseEvent *ev) Q_DECL_OVERRIDE;
 

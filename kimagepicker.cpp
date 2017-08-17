@@ -14,18 +14,24 @@ KImagePicker::~KImagePicker()
 {
 }
 
-void KImagePicker::mousePressEvent(QMouseEvent *ev) 
+void KImagePicker::setPath(const QString& path)
+{
+    QPixmap pic;
+    if (pic.load(path)) {
+        path_ = path;
+        setPixmap(pic);
+    }
+    else {
+        setText(QStringLiteral("无效的图片！"));
+        path_ = "";
+    }
+}
+
+void KImagePicker::mousePressEvent(QMouseEvent *ev)
 {
     path_ = QFileDialog::getOpenFileName(this->window(), 
         QStringLiteral("请选择图象文件"), "", "Image (*.jpg *.gif *.png)");
     if (!path_.isEmpty()) {
-        QPixmap pic;
-        if (pic.load(path_)) {
-            setPixmap(pic);
-        }
-        else {
-            setText(QStringLiteral("无效的图片！"));
-            path_ = "";
-        }
+        setPath(path_);
     }
 }
